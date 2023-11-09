@@ -149,8 +149,8 @@ public class StepDefinition {
 		draggable.dragImage();
 	}
 	
-	@When("user see the product image")
-	public void user_see_the_product_image() throws IOException, InterruptedException {
+	@When("user see the product image and can compare the image")
+	public void user_see_the_product_image_and_can_compare_the_image() throws IOException, InterruptedException {
 		homepage home_page = new homepage(driver);
 		home_page.compareImage();
 		
