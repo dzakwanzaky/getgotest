@@ -1,14 +1,18 @@
 package step_definitions;
 
+import java.io.IOException;
+import java.time.Duration;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import object_repository.login_page;
 import object_repository.product_detail_page;
+import object_repository.about_page;
+import object_repository.draggable_page;
 import object_repository.homepage;
 
 public class StepDefinition {
@@ -22,6 +26,7 @@ public class StepDefinition {
 		System.setProperty("webdriver.chrome.driver", projectPath+"/src/test/resources/driver/chromedriver");
 		
 		driver = new ChromeDriver();
+		driver.manage().window().maximize();
 		
 		driver.navigate().to("https://www.saucedemo.com/");
 	}
@@ -97,5 +102,64 @@ public class StepDefinition {
 		product_detail.redirectProductDetail();
 
 	}
+	
+	@When("user click about page button on the sidebar menu")
+	public void user_click_about_page_button_on_the_sidebar_menu() {
+		homepage home_page = new homepage(driver);
+		home_page.goToAbout();
+	}
+	
+	@When("user scroll to the swipe bar and swap")
+	public void user_scroll_to_the_swipe_bar_and_swap() {
+		about_page about = new about_page(driver);
+		about.swipeElement();
+		about.zoomPage();
+
+	}
+	
+	@When("user click filter button and select one of the filter")
+	public void user_click_filter_button_and_select_one_of_the_filter() {
+		homepage home_page = new homepage(driver);
+		home_page.selectDropdown();
+	}
+	
+	@Then("user can see the homepage filtered by the selected filter")
+	public void  user_can_see_the_homepage_filtered_by_the_selected_filter() {
+		homepage home_page = new homepage(driver);
+		home_page.activeDropdown();
+	}
+	
+	
+	@Given("user is draggable web")
+	public void user_is_draggable_web() {
+		String projectPath = System.getProperty("user.dir");
+		System.setProperty("webdriver.chrome.driver", projectPath+"/src/test/resources/driver/chromedriver");
+		
+		driver = new ChromeDriver();
+		
+		driver.navigate().to("https://jqueryui.com/draggable/");
+		
+	    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+
+	}
+	
+	@Then("user drag box on the draggable page")
+	public void user_drag_box_on_the_draggable_page() {
+		draggable_page draggable = new draggable_page(driver);
+		draggable.dragImage();
+	}
+	
+	@When("user see the product image")
+	public void user_see_the_product_image() throws IOException, InterruptedException {
+		homepage home_page = new homepage(driver);
+		home_page.compareImage();
+		
+	}
+	
+  	@Then("user can compare the product image")
+  	public void user_can_compare_the_product_image() {
+  		
+  	}
+	
 
 }

@@ -18,3 +18,10 @@ Feature: Product feature
   Scenario: User can go to product detail page
     When user click one of the product in the homepage
     Then user can go to product detail page
+    
+  Scenario: User can filter product
+  	When user click filter button and select one of the filter
+  	Then user can see the homepage filtered by the selected filter
+  	
+  Scenario: User can compare the product image
+  	Then user see the product image and can compare the image
